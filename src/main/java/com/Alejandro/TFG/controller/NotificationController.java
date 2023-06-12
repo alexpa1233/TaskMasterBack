@@ -6,6 +6,8 @@ package com.Alejandro.TFG.controller;
 
 import com.Alejandro.TFG.Service.NotificationService;
 import com.Alejandro.TFG.model.Notification;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
  *
  * @author Alex
  */
-public class NotificationController {
-    private final NotificationService notificationService;
 
-    public NotificationController(NotificationService notificationService) {
-        this.notificationService = notificationService;
-    }
+public class NotificationController {
+    @Autowired
+    private NotificationService notificationService;
+
+    
 
     @PostMapping
     public ResponseEntity<Notification> createNotification(@RequestBody Notification notification) {

@@ -49,9 +49,7 @@ public class TaskServiceImpl implements TaskService{
         task.setTitle(updatedTask.getTitle());
         task.setDescription(updatedTask.getDescription());
         task.setDueDate(updatedTask.getDueDate());
-        task.setStatus(updatedTask.getStatus());
-        task.setPriority(updatedTask.getPriority());
-
+        task.setType(updatedTask.getType());
         // Guardar los cambios en la base de datos
         taskRepository.save(task);
 
@@ -88,13 +86,48 @@ public class TaskServiceImpl implements TaskService{
 
     // Asignar la tarea al usuario
     task.setUser(user);
-    task.setUpdatedAt(LocalDateTime.now());
+    
 
     // Guardar los cambios en la base de datos
     taskRepository.save(task);
 
     
 
+    }
+
+     @Override
+    public List<Task> searchTasksByKeyword(String keyword) {
+        return taskRepository.searchByKeyword(keyword);
+    }
+
+
+    @Override
+    public List<Task> getAllTaskorderList(User user, String orderBy) {
+         List<Task> tasks;
+        
+        switch (orderBy) {
+            case "dueDateAsc":
+                tasks = taskRepository.findAllByUserOrderByDueDateAsc(user);
+                break;
+            case "dueDateDesc":
+                tasks = taskRepository.findAllByUserOrderByDueDateDesc(user);
+                break;
+            case "typeAsc":
+                tasks = taskRepository.findAllByUserOrderByTypeAsc(user);
+                break;
+            case "typeDesc":
+                tasks = taskRepository.findAllByUserOrderByTypeDesc(user);
+                break;
+                
+            case "title":
+                tasks = taskRepository.findAllByUserOrderByTitle(user);
+                break;
+            default:
+                tasks = taskRepository.findAllByUserOrderByTitle(user);
+                break;
+        }
+
+        return tasks;
     }
 
     

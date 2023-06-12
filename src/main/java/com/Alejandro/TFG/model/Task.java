@@ -1,9 +1,10 @@
 package com.Alejandro.TFG.model;
 
-import lombok.Data;
-import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
+import jakarta.persistence.*;
+
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 //Valores de la tabla Task
@@ -24,18 +25,10 @@ public class Task {
     @Column(name = "due_date")
     private LocalDate dueDate;
     
-    @Column(nullable=false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
+    private TaskType type;
     
-    @Column(nullable=false)
-    private String priority;
-    
-    @Column(name = "created_at", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime updatedAt;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

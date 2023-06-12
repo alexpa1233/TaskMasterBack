@@ -1,15 +1,16 @@
 package com.Alejandro.TFG.repository;
 
 import com.Alejandro.TFG.model.Task;
+import com.Alejandro.TFG.model.User;
 
 import java.util.List;
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import jakarta.transaction.Transactional;
+
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task,Long>{
@@ -21,5 +22,17 @@ public interface TaskRepository extends JpaRepository<Task,Long>{
 
     @Query("SELECT * FROM Task WHERE title LIKE %?1% OR description LIKE %?1%")
     List<Task> searchByKeyword(String keyboard);
+
+    List<Task> findAllByUserOrderByDueDateAsc(User user); // Ordenar por fecha de vencimiento ascendente
+
+    List<Task> findAllByUserOrderByDueDateDesc(User user); // Ordenar por fecha de vencimiento descendente
+
+    List<Task> findAllByUserOrderByTypeAsc(User user); // Ordenar por tipo ascendente
+
+    List<Task> findAllByUserOrderByTypeDesc(User user); // Ordenar por tipo descendente
+
+    List<Task> findAllByUserOrderByTitle(User user);//Ordenar por titulo
+
+
 
 }

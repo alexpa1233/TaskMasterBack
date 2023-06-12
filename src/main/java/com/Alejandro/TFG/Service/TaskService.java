@@ -1,6 +1,8 @@
 package com.Alejandro.TFG.Service;
 
 import com.Alejandro.TFG.model.Task;
+import com.Alejandro.TFG.model.User;
+
 import java.util.List;
 
 
@@ -12,8 +14,10 @@ public interface TaskService {
     void deleteTask(Long taskId);
     Task getTaskById(Long taskId);
     List<Task> getAllTasks();
+    List<Task> getAllTaskorderList(User user, String orderBy);
     void shareTaskWithUser(Long taskId, Long userId);
-
+    List<Task> searchTasksByKeyword(String keyword);
+    
     
     
 }

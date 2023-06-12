@@ -4,8 +4,7 @@ CREATE TABLE "User" (
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+
 );
 
 -- Crear la tabla "Task"
@@ -14,10 +13,7 @@ CREATE TABLE "Task" (
   title VARCHAR(255) NOT NULL,
   description TEXT,
   due_date DATE,
-  status VARCHAR(20),
-  priority VARCHAR(20),
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+  Type VARCHAR(20),
   user_id INT REFERENCES "User" (id) ON DELETE CASCADE
 );
 
@@ -28,6 +24,5 @@ CREATE TABLE "Notification" (
   notification_date TIMESTAMPTZ,
   recurring_interval VARCHAR(20),
   active BOOLEAN,
-  created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+
 );
