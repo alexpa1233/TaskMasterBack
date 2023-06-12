@@ -39,9 +39,8 @@ public class LabelController {
 
     @PutMapping("/{labelId}")
     public ResponseEntity<Label> updateLabel(@PathVariable Long labelId, @RequestBody Label updatedLabel) {
-        Label label = labelService.getLabelById(labelId);
-        label.setName(updatedLabel.getName());
-        // Actualizar otros campos según sea necesario
+        Label label = labelService.getLabelByID(labelId);
+        label.setName(updatedLabel.getName());  
 
         labelService.updateLabel(label);
         return ResponseEntity.ok(label);
@@ -56,7 +55,7 @@ public class LabelController {
     @GetMapping
     public ResponseEntity<List<Label>> getAllLabels(@RequestParam Long taskId) {
         Task task = taskService.getTaskById(taskId);
-        List<Label> labels = labelService.getAllLabelsByTask(task);
+        List<Label> labels = labelService.getAllLabelByTask(task);
         return ResponseEntity.ok(labels);
     }
 }

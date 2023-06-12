@@ -11,5 +11,6 @@ import com.Alejandro.TFG.model.Task;
 @Repository
 public interface LabelRepository extends JpaRepository<Label, Long> {
     List<Label> findAllByTask(Task task);
-    
+
+    Label findById(long id);
 }
