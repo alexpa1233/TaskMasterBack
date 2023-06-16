@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "Notification")
-public class Notification {
+public class NotificationDB {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,11 +22,6 @@ public class Notification {
     @Column(nullable=false)
     private boolean active;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime updatedAt;
     
     @ManyToOne
     @JoinColumn(name = "task_id")

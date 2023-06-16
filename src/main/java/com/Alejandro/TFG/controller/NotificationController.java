@@ -5,7 +5,7 @@
 package com.Alejandro.TFG.controller;
 
 import com.Alejandro.TFG.Service.NotificationService;
-import com.Alejandro.TFG.model.Notification;
+import com.Alejandro.TFG.model.NotificationDB;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,14 +27,14 @@ public class NotificationController {
     
 
     @PostMapping
-    public ResponseEntity<Notification> createNotification(@RequestBody Notification notification) {
-        Notification createdNotification = notificationService.createNotification(notification);
+    public ResponseEntity<NotificationDB> createNotification(@RequestBody NotificationDB notification) {
+        NotificationDB createdNotification = notificationService.createNotification(notification);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdNotification);
     }
 
     @GetMapping("/{notificationId}")
-    public ResponseEntity<Notification> getNotificationById(@PathVariable Long notificationId) {
-        Notification notification = notificationService.getNotificationById(notificationId);
+    public ResponseEntity<NotificationDB> getNotificationById(@PathVariable Long notificationId) {
+        NotificationDB notification = notificationService.getNotificationById(notificationId);
         return ResponseEntity.ok(notification);
     }
 }

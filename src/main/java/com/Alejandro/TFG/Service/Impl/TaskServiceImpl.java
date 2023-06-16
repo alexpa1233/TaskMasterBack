@@ -14,22 +14,20 @@ import com.Alejandro.TFG.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author Alex
  */
+@Service
 public class TaskServiceImpl implements TaskService{
+    @Autowired
     private TaskRepository taskRepository;
+    @Autowired
     private UserRepository userRepository;
-    private NotificationService notificationService;
-
-    public TaskServiceImpl(TaskRepository taskRepository, UserRepository userRepo, NotificationService notificationService) {
-        this.taskRepository = taskRepository;
-        this.userRepository = userRepo;
-        this.notificationService = notificationService;
-    }
     
-
     @Override
     public Task createTask(Task task) {
         return taskRepository.save(task);
@@ -119,11 +117,14 @@ public class TaskServiceImpl implements TaskService{
                 tasks = taskRepository.findAllByUserOrderByTypeDesc(user);
                 break;
                 
-            case "title":
-                tasks = taskRepository.findAllByUserOrderByTitle(user);
+            case "titleAsc":
+                tasks = taskRepository.findAllByUserOrderByTitleAsc(user);
+                break;
+            case "titleDesc":
+                tasks = taskRepository.findAllByUserOrderByTitleDesc(user);
                 break;
             default:
-                tasks = taskRepository.findAllByUserOrderByTitle(user);
+                tasks = taskRepository.findAllByUserOrderByTitleAsc(user);
                 break;
         }
 

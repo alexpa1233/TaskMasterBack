@@ -8,31 +8,37 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task,Long>{
-    @Query(value = "SELECT t.* FROM Task t JOIN User u ON t.user_id = u.id where t.user_id = ?1")
-    List<Task> findByUser(Long userId);
+public interface TaskRepository extends JpaRepository<Task, Long> {
+    
+    List<Task> findByUser(User user);
 
-    @Query("SELECT t.* FROM Task t JOIN User u ON t.user_id = u.id WHERE t.user.id = ?1 ORDER BY t.due_date ASC")
-    List<Task> findAllOrderByDueDateForUser(Long userId);
+    @Query("SELECT t FROM Task t JOIN t.user u WHERE u = :user ORDER BY t.dueDate ASC")
+    List<Task> findAllOrderByDueDateForUser(@Param("user") User user);
 
-    @Query("SELECT * FROM Task WHERE title LIKE %?1% OR description LIKE %?1%")
-    List<Task> searchByKeyword(String keyboard);
+    @Query("SELECT t FROM Task t WHERE t.title LIKE %:keyword% OR t.description LIKE %:keyword%")
+    List<Task> searchByKeyword(@Param("keyword") String keyword);
 
-    List<Task> findAllByUserOrderByDueDateAsc(User user); // Ordenar por fecha de vencimiento ascendente
+    @Query("SELECT t FROM Task t WHERE t.user = :user ORDER BY t.dueDate ASC")
+    List<Task> findAllByUserOrderByDueDateAsc(@Param("user") User user); // Ordenar por fecha de vencimiento ascendente
 
-    List<Task> findAllByUserOrderByDueDateDesc(User user); // Ordenar por fecha de vencimiento descendente
+    @Query("SELECT t FROM Task t WHERE t.user = :user ORDER BY t.dueDate DESC")
+    List<Task> findAllByUserOrderByDueDateDesc(@Param("user") User user); // Ordenar por fecha de vencimiento descendente
 
-    List<Task> findAllByUserOrderByTypeAsc(User user); // Ordenar por tipo ascendente
+    @Query("SELECT t FROM Task t WHERE t.user = :user ORDER BY t.type ASC")
+    List<Task> findAllByUserOrderByTypeAsc(@Param("user") User user); // Ordenar por tipo ascendente
 
-    List<Task> findAllByUserOrderByTypeDesc(User user); // Ordenar por tipo descendente
+    @Query("SELECT t FROM Task t WHERE t.user = :user ORDER BY t.type DESC")
+    List<Task> findAllByUserOrderByTypeDesc(@Param("user") User user); // Ordenar por tipo descendente
 
-    List<Task> findAllByUserOrderByTitle(User user);//Ordenar por titulo
+    @Query("SELECT t FROM Task t WHERE t.user = :user ORDER BY t.title ASC")
+    List<Task> findAllByUserOrderByTitleAsc(@Param("user") User user); // Ordenar por título ascendente
 
-
-
+    @Query("SELECT t FROM Task t WHERE t.user = :user ORDER BY t.title DESC")
+    List<Task> findAllByUserOrderByTitleDesc(@Param("user") User user); // Ordenar por título descendente
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.Alejandro.TFG.Service.LabelService;
 import com.Alejandro.TFG.exception.NotFoundException;
@@ -11,6 +12,7 @@ import com.Alejandro.TFG.model.Label;
 import com.Alejandro.TFG.model.Task;
 import com.Alejandro.TFG.repository.LabelRepository;
 
+@Service
 public class LabelServiceImpl implements LabelService{
     @Autowired
     private LabelRepository labelRepository;

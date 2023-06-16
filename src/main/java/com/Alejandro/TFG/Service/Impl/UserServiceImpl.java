@@ -12,16 +12,20 @@ import com.Alejandro.TFG.repository.UserRepository;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  *
  * @author Alex
  */
+@Service
 public class UserServiceImpl implements UserService{
-    private final UserRepository userRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    
     
     
 
