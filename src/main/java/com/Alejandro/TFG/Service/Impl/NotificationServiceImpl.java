@@ -14,6 +14,7 @@ import com.Alejandro.TFG.repository.TaskRepository;
 import com.google.firebase.messaging.Notification;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -79,9 +80,7 @@ public class NotificationServiceImpl implements NotificationService{
                 .setTitle(title)
                 .setBody(message)
                 .build()
-                    
                 )
-                .setTopic("nombre_del_tema") // Opcional: Puedes enviar la notificación a un tema específico en FCM
                 .build();
 
         try {
