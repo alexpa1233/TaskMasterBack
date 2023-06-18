@@ -92,7 +92,7 @@ public class NotificationServiceImpl implements NotificationService{
         }
     }
     
-
+    //Esta funcion se encarga de generar los mensajes 
     private String calculateRemainingTimeMessage(LocalDateTime localDateTime, String recurringInterval) {
         // Obtener la fecha actual
         LocalDate currentDate = LocalDate.now();

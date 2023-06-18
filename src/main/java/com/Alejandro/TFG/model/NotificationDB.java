@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 //Valores de la tabla Notification
-@Data
+
 @Entity
 @Table(name = "Notification")
 public class NotificationDB {
@@ -15,9 +15,9 @@ public class NotificationDB {
 
     @Column(name = "notification_date")
     private LocalDateTime notificationDate;
-
+    @Enumerated(EnumType.STRING)
     @Column(name = "recurring_interval")
-    private String recurringInterval;
+    private RecurringInterval recurringInterval;
     
     @Column(nullable=false)
     private boolean active;
