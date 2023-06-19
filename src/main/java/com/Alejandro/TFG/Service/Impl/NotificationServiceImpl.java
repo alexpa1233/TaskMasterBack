@@ -7,6 +7,7 @@ package com.Alejandro.TFG.Service.Impl;
 import com.Alejandro.TFG.Service.NotificationService;
 import com.Alejandro.TFG.exception.NotFoundException;
 import com.Alejandro.TFG.model.NotificationDB;
+import com.Alejandro.TFG.model.RecurringInterval;
 import com.Alejandro.TFG.model.Task;
 import com.Alejandro.TFG.repository.NotificationRepository;
 import com.Alejandro.TFG.repository.TaskRepository;
@@ -93,7 +94,7 @@ public class NotificationServiceImpl implements NotificationService{
     }
     
     //Esta funcion se encarga de generar los mensajes 
-    private String calculateRemainingTimeMessage(LocalDateTime localDateTime, String recurringInterval) {
+    private String calculateRemainingTimeMessage(LocalDateTime localDateTime, RecurringInterval recurringInterval) {
         // Obtener la fecha actual
         LocalDate currentDate = LocalDate.now();
 

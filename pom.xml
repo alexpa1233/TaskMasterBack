@@ -5,15 +5,17 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.0</version>
+		<version>2.6.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.Alejandro</groupId>
 	<artifactId>TFG</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>TFG</name>
-	<description>Proyecto sobre la creación de una aplicación de </description>
+	<description>Proyecto sobre la creación de una aplicación de tareas</description>
 	<properties>
+	    <maven.compiler.source>17</maven.compiler.source>
+    	<maven.compiler.target>17</maven.compiler.target>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
@@ -67,6 +69,11 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+        </plugin>
 		</plugins>
 	</build>
 
