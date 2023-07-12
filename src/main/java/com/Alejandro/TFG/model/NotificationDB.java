@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 //Valores de la tabla Notification
+
 @Data
 @NoArgsConstructor
 @Entity

@@ -103,19 +103,19 @@ public class NotificationServiceImpl implements NotificationService{
         String intervalUnit = "";
 
         switch (recurringInterval) {
-            case "diariamente":
+            case cada_hora:
                 remainingIntervals = ChronoUnit.DAYS.between(currentDate, localDateTime);
                 intervalUnit = "día(s)";
                 break;
-            case "cada_hora":
+            case diariamente:
                 remainingIntervals = ChronoUnit.HOURS.between(currentDate.atStartOfDay(), localDateTime.now());
                 intervalUnit = "hora(s)";
                 break;
-            case "semanalmente":
+            case semanalmente:
                 remainingIntervals = ChronoUnit.WEEKS.between(currentDate, localDateTime);
                 intervalUnit = "semana(s)";
                 break;
-            case "mensualmente":
+            case mensualmente:
                 remainingIntervals = ChronoUnit.MONTHS.between(currentDate, localDateTime);
                 intervalUnit = "mes(es)";
                 break;
