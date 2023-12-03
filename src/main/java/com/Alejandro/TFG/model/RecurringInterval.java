@@ -5,7 +5,7 @@ package com.Alejandro.TFG.model;
  */
 public enum RecurringInterval{
     
-    cada_hora,
+    
     diariamente,
     semanalmente,
     mensualmente
