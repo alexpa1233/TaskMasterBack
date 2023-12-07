@@ -19,7 +19,9 @@ public class Work {
     @OneToMany(mappedBy = "Work")
     private List<WorkCheckBox> workCheckBox;
 
-    
+    @OneToOne
+    @JoinColumn(name = "task_id")
+    private Task task;
 
 }
 
