@@ -41,7 +41,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "deviceId")
     private String deviceId;
     
     @Column(nullable = false)
