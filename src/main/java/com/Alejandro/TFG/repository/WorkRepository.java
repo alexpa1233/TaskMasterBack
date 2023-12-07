@@ -1,16 +1,15 @@
 package com.Alejandro.TFG.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.Alejandro.TFG.model.Label;
+import com.Alejandro.TFG.model.Work;
 import com.Alejandro.TFG.model.Task;
 
 @Repository
-public interface LabelRepository extends JpaRepository<Label, Long> {
-    List<Label> findAllByTask(Task task);
+public interface WorkRepository extends JpaRepository<Work,Long>{
 
-    Label findById(long id);
 }

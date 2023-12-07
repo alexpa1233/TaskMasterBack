@@ -23,14 +23,10 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService{
     
     @Autowired
-    private UserRepository userRepository;
-
-    
-    
-    
+    private UserRepository userRepository; 
 
     @Override
-    public User createUser(User user) {
+    public User saveUser(User user) {
         return userRepository.save(user);
     }
 
@@ -56,9 +52,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User login(String email, String password) {
-      return userRepository.findByEmailAndPassword(email, password)
-              .orElseThrow(() -> new UnauthorizedException("Invalid credentials"));
+    public User login(String usurname, String password) {
+      return userRepository.findByUsurnameAndPassword(usurname, password)
+            .orElseThrow(() -> new NotFoundException("User not found"));
     }
     
 }

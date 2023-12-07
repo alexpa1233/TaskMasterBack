@@ -16,36 +16,51 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author Alex
  */
+@RestController
+@RequestMapping("/api/user")
 public class UserController {
     @Autowired
     private  UserService userService;
     
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
+        User createdUser = userService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable Long userId) {
         User user = userService.getUserById(userId);
-        return ResponseEntity.ok(user);
+        return user != null ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User updatedUser) {
-        User user = userService.getUserById(userId);
-        user.setName(updatedUser.getName());
-        user.setEmail(updatedUser.getEmail());
-        user.setPassword(updatedUser.getPassword());
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        User existingUser = userService.getUserById(id);
 
-        userService.updateUser(user);
-        return ResponseEntity.ok(user);
+        if (existingUser != null) {
+            // Actualizar las propiedades del usuario existente con las del usuario actualizado
+            existingUser.setName(updatedUser.getName());
+            existingUser.setSurname(updatedUser.getSurname());
+            existingUser.setUsername(updatedUser.getUsername());
+            existingUser.setPassword(updatedUser.getPassword());
+            existingUser.setEmail(updatedUser.getEmail());
+
+            // Guardar el usuario actualizado
+            User updatedUserEntity = userService.saveUser(existingUser);
+
+            return ResponseEntity.ok(updatedUserEntity);
+        } else {
+            // El usuario no existe
+            return ResponseEntity.notFound().build();
+        }
     }
 
     

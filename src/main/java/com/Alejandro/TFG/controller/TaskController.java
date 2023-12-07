@@ -4,8 +4,11 @@
  */
 package com.Alejandro.TFG.controller;
 
+import com.Alejandro.TFG.Service.FirebaseMessagingService;
 import com.Alejandro.TFG.Service.TaskService;
 import com.Alejandro.TFG.Service.UserService;
+import com.Alejandro.TFG.model.NotificationMessage;
+import com.Alejandro.TFG.model.Social;
 import com.Alejandro.TFG.model.Task;
 import com.Alejandro.TFG.model.User;
 
@@ -30,24 +33,41 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Alex
  */
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/api/tasks")
 public class TaskController {
     @Autowired
      private TaskService taskService;
+
     @Autowired
-     private UserService userService;
+     private FirebaseMessagingService firebaseMessagingService;
 
     @PostMapping
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
-        Task createdTask = taskService.createTask(task);
+        Task createdTask = taskService.saveTask(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
     }
 
     @PutMapping("/{taskId}")
     public ResponseEntity<Task> updateTask(@PathVariable Long taskId, @RequestBody Task updatedTask) {
-        Task task = taskService.updateTask(taskId, updatedTask);
-        return ResponseEntity.ok(task);
+        Task existingTask = taskService.getTaskById(taskId);
+
+        if (existingTask != null) {
+            // Actualizar las propiedades de la tarea existente con las del objeto actualizado
+            existingTask.setType(updatedTask.getType());
+            existingTask.setDescription(updatedTask.getDescription());
+            existingTask.setUser(updatedTask.getUser());
+            existingTask.setTitle(updatedTask.getTitle());
+
+            // Guardar la tarea actualizada
+            Task updatedTaskEntity = taskService.saveTask(existingTask);
+
+            return ResponseEntity.ok(updatedTaskEntity);
+        } else {
+            // La tarea no existe
+            return ResponseEntity.notFound().build();
+        }
     }
+    
 
     @DeleteMapping("/{taskId}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
@@ -67,12 +87,6 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
-    @PostMapping("/{taskId}/share/{userId}")
-    public ResponseEntity<Void> shareTaskWithUser(@PathVariable Long taskId, @PathVariable Long userId) {
-        taskService.shareTaskWithUser(taskId, userId);
-        return ResponseEntity.noContent().build();
-    }
-
     @GetMapping("/search")
     public ResponseEntity<List<Task>> searchTasksByKeyword(@RequestParam("keyword") String keyword) {
         List<Task> tasks = taskService.searchTasksByKeyword(keyword);
@@ -80,9 +94,26 @@ public class TaskController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Task>> getAllTasksByUser(@PathVariable Long userId, @RequestParam(value = "orderBy", required = false) String orderBy) {
-        User user = userService.getUserById(userId);
-        List<Task> tasks = taskService.getAllTaskorderList(user, orderBy);
-        return ResponseEntity.ok(tasks);
+    public List<Task> getAllTasksByUser(@PathVariable Long userId) {
+        return taskService.getAllTasksByUser(userId);
     }
+
+    @PostMapping("/{taskId}/send-notification")
+    public ResponseEntity<String> sendNotification(@PathVariable Long taskId) {
+        Task task = taskService.getTaskById(taskId);
+
+        if (task != null && task.getType().equals( "SOCIAL")) {
+            // Verifica que sea un 'Social' antes de enviar notificación
+            if (task.getSocial() instanceof Social) {
+               
+                return ResponseEntity.ok(firebaseMessagingService.verificarEnvioNotificacionesProgramadas());
+            } else {
+                return ResponseEntity.badRequest().body("Task does not have a valid Social");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Task or Social not available");
+        }
+    }
+
+    
 }

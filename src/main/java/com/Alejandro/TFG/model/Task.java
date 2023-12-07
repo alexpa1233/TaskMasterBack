@@ -23,9 +23,6 @@ public class Task {
     @Column(nullable=false)
     private String description;
     
-    @Column(name = "due_date")
-    private LocalDate dueDate;
-    
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private TaskType type;
@@ -33,5 +30,11 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Social social;
+
+    @OneToOne(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Work work;
 
 }
