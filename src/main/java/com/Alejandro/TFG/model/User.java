@@ -47,7 +47,7 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "User")
+    @OneToMany(mappedBy = "user")
     private List<Task> task = new ArrayList<>();
 }
 
