@@ -1,6 +1,9 @@
 package com.Alejandro.TFG.model;
 
-import java.time.LocalDate;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
@@ -11,10 +14,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "Task")
+@Table(name = "task")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     
     @Column(nullable=false)
@@ -31,10 +35,13 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User user;
 
+    
+    @JsonIgnoreProperties(value="task")
     @OneToOne(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private Social social;
 
+    @JsonIgnoreProperties(value="task")
     @OneToOne(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private Work work;
-
+    
 }

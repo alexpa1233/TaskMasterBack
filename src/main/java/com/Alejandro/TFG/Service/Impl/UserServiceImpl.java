@@ -6,11 +6,13 @@ package com.Alejandro.TFG.Service.Impl;
 
 import com.Alejandro.TFG.Service.UserService;
 import com.Alejandro.TFG.exception.NotFoundException;
+import com.Alejandro.TFG.exception.NotLoginException;
 import com.Alejandro.TFG.exception.UnauthorizedException;
 import com.Alejandro.TFG.model.User;
 import com.Alejandro.TFG.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,8 +55,25 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User login(String username, String password) {
-      return userRepository.findByUsernameAndPassword(username, password)
-            .orElseThrow(() -> new NotFoundException("User not found"));
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if(password.equals(user.getPassword())){
+                return user;
+            }else{
+                throw new NotLoginException("Incorrect password");
+            }
+            
+        }
+
+        throw new NotFoundException("User not found or incorrect credentials");
+    }
+    
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
     
 }

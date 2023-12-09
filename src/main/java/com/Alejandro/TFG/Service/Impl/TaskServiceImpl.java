@@ -10,6 +10,7 @@ import com.Alejandro.TFG.exception.NotFoundException;
 import com.Alejandro.TFG.model.Task;
 import com.Alejandro.TFG.repository.TaskRepository;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,8 +43,8 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task getTaskById(Long taskId) {
-         return taskRepository.findById(taskId)
-                .orElseThrow(() -> new NotFoundException("Task not found"));
+        return taskRepository.findById(taskId)
+            .orElseThrow(() -> new NotFoundException("Task not found"));
     }
 
     @Override

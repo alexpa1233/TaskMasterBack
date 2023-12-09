@@ -13,6 +13,7 @@ import com.Alejandro.TFG.model.Task;
 import com.Alejandro.TFG.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,7 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Alex
  */
 @RestController
-@RequestMapping("/api/tasks")
+@RequestMapping("/api/task/")
 public class TaskController {
     @Autowired
      private TaskService taskService;
@@ -42,6 +44,7 @@ public class TaskController {
      private FirebaseMessagingService firebaseMessagingService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
         Task createdTask = taskService.saveTask(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTask);
@@ -49,17 +52,18 @@ public class TaskController {
 
     @PutMapping("/{taskId}")
     public ResponseEntity<Task> updateTask(@PathVariable Long taskId, @RequestBody Task updatedTask) {
-        Task existingTask = taskService.getTaskById(taskId);
+        Task task = taskService.getTaskById(taskId);
 
-        if (existingTask != null) {
+        if (task != null) {
+            
             // Actualizar las propiedades de la tarea existente con las del objeto actualizado
-            existingTask.setType(updatedTask.getType());
-            existingTask.setDescription(updatedTask.getDescription());
-            existingTask.setUser(updatedTask.getUser());
-            existingTask.setTitle(updatedTask.getTitle());
+            task.setType(updatedTask.getType());
+            task.setDescription(updatedTask.getDescription());
+            task.setUser(updatedTask.getUser());
+            task.setTitle(updatedTask.getTitle());
 
             // Guardar la tarea actualizada
-            Task updatedTaskEntity = taskService.saveTask(existingTask);
+            Task updatedTaskEntity = taskService.saveTask(task);
 
             return ResponseEntity.ok(updatedTaskEntity);
         } else {
@@ -78,7 +82,7 @@ public class TaskController {
     @GetMapping("/{taskId}")
     public ResponseEntity<Task> getTaskById(@PathVariable Long taskId) {
         Task task = taskService.getTaskById(taskId);
-        return ResponseEntity.ok(task);
+        return task != null ? ResponseEntity.ok(task) : ResponseEntity.notFound().build();
     }
 
     @GetMapping
@@ -98,21 +102,11 @@ public class TaskController {
         return taskService.getAllTasksByUser(userId);
     }
 
-    @PostMapping("/{taskId}/send-notification")
-    public ResponseEntity<String> sendNotification(@PathVariable Long taskId) {
-        Task task = taskService.getTaskById(taskId);
-
-        if (task != null && task.getType().equals( "SOCIAL")) {
-            // Verifica que sea un 'Social' antes de enviar notificación
-            if (task.getSocial() instanceof Social) {
-               
-                return ResponseEntity.ok(firebaseMessagingService.verificarEnvioNotificacionesProgramadas());
-            } else {
-                return ResponseEntity.badRequest().body("Task does not have a valid Social");
-            }
-        } else {
-            return ResponseEntity.badRequest().body("Task or Social not available");
-        }
+    @PostMapping("/send-notifications")
+    public ResponseEntity<String> sendNotifications() {
+        String result = firebaseMessagingService.verificarEnvioNotificacionesProgramadas();
+        HttpStatus status = result.startsWith("Success") ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+        return ResponseEntity.status(status).body(result);
     }
 
     

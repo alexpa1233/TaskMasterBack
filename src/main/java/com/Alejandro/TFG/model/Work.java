@@ -5,12 +5,15 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 //Valores de la tabla Notification
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "Work")
+@Table(name = "work")
 public class Work {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +23,7 @@ public class Work {
     private List<WorkCheckBox> workCheckBox;
 
     @OneToOne
+    @JsonIgnoreProperties(value="work")
     @JoinColumn(name = "task_id")
     private Task task;
 

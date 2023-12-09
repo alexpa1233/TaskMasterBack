@@ -11,6 +11,7 @@ import com.Alejandro.TFG.Service.FirebaseMessagingService;
 import com.Alejandro.TFG.model.NotificationMessage;
 import com.Alejandro.TFG.model.Social;
 import com.Alejandro.TFG.model.Task;
+import com.Alejandro.TFG.model.TaskType;
 import com.Alejandro.TFG.repository.TaskRepository;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
@@ -45,10 +46,13 @@ public class FirebaseMessagingServiceImpl implements FirebaseMessagingService{
         // Lógica para verificar y enviar notificaciones programadas
         // Puedes llamar a shouldSendNotification y enviar notificaciones aquí
 
-        List<Task> tasks = taskRepository.findAll(); // Obtener todas las tareas
+        List<Task> tasks = taskRepository.findByType(TaskType.SOCIAL); // Obtener todas las tareas
 
+        if (tasks.isEmpty()) {
+            return "No hay tareas de tipo SOCIAL para enviar notificaciones.";
+        }
         for (Task task : tasks) {
-            if (task.getSocial() != null&& task.getType().equals("SOCIAL") && shouldSendNotification(task.getSocial())) {
+            if (task.getSocial() != null&& task.getType().equals(TaskType.SOCIAL) && shouldSendNotification(task.getSocial())) {
                 // Construir y enviar notificación
                 NotificationMessage notificationMessage = createNotificationMessage(task);
                 Notification notification = Notification

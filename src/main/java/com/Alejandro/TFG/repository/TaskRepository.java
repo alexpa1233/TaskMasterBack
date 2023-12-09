@@ -1,6 +1,7 @@
 package com.Alejandro.TFG.repository;
 
 import com.Alejandro.TFG.model.Task;
+import com.Alejandro.TFG.model.TaskType;
 import com.Alejandro.TFG.model.User;
 
 import java.util.List;
@@ -21,5 +22,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Query("SELECT t FROM Task t WHERE t.title LIKE %:keyword% OR t.description LIKE %:keyword%")
     List<Task> searchByKeyword(@Param("keyword") String keyword);
 
+    List<Task> findByType(TaskType type);
     //Posibles mejoras ordenar por title, se puede hacer en la APP principal, pero a su vez tambien se puede aquí
 }

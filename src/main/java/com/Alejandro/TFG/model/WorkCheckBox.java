@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "WorkCheckBox")
+@Table(name = "workCheckBox")
 public class WorkCheckBox {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

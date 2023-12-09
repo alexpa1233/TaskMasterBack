@@ -2,6 +2,9 @@ package com.Alejandro.TFG.model;
 
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "Social")
+@Table(name = "social")
 public class Social {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +31,7 @@ public class Social {
 
     
     @OneToOne
+    @JsonIgnoreProperties(value="social")
     @JoinColumn(name = "task_id")
     private Task task;
     
