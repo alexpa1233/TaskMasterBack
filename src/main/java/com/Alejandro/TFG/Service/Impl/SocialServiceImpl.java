@@ -31,8 +31,8 @@ public class SocialServiceImpl implements SocialService{
     }
 
     @Override
-    public void deleteSocial(Long id) {
-        socialRepository.deleteById(id);
+    public void deleteSocial(Long socialId) {
+        socialRepository.deleteById(socialId);
     }
 
     

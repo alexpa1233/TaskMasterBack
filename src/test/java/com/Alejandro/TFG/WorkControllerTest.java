@@ -14,10 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Collections;
-import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -54,22 +51,22 @@ class WorkControllerTest {
 
     @Test
     void testCreateWork() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api//")  // <-- Ajusta la URL aquí
-        .content("{\"task\":\"{\"id\":2}\",\"workCheckBox\":\"null\}")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/work/")  // <-- Ajusta la URL aquí
+        .content("{\"workCheckBox\":\"null\",\"task\":{\"id\":2}}")
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test
     void testDeleteWork() throws Exception {
-        Long workId = 1L;
+        Long id = 1L;
 
         // Ejecutar la solicitud HTTP y realizar la prueba
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/works/{id}", workId)
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/work/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
         // Verificar que el servicio se llamó correctamente
-        verify(workService, times(1)).deleteWork(workId);
+        verify(workService, times(1)).deleteWork(id);
     }
 }

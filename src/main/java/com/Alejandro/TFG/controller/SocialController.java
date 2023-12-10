@@ -36,11 +36,7 @@ public class SocialController {
         return new ResponseEntity<>(createdSocial, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteSocial(@PathVariable Long id) {
-        socialService.deleteSocial(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+    
 
     @PutMapping("/{socialId}")
     public ResponseEntity<Social> updateTask(@PathVariable Long socialId, @RequestBody Social updatedSocial) {

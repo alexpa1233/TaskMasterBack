@@ -50,9 +50,9 @@ public class WorkController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdWork);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteWork(@PathVariable Long id) {
-        workService.deleteWork(id);
+    @DeleteMapping("/{workId}")
+    public ResponseEntity<Void> deleteWork(@PathVariable Long workId) {
+        workService.deleteWork(workId);
         return ResponseEntity.noContent().build();
     }
 

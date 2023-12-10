@@ -43,8 +43,8 @@ public class WorkServiceImpl implements WorkService{
     }
 
     @Override
-    public void deleteWork(Long id) {
-        workRepository.deleteById(id);
+    public void deleteWork(Long workId) {
+        workRepository.deleteById(workId);
     }
 
     

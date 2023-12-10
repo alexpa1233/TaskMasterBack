@@ -1,7 +1,9 @@
 package com.Alejandro.TFG.Service.Impl;
 
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -61,12 +63,13 @@ public class FirebaseMessagingServiceImpl implements FirebaseMessagingService{
                     .setBody(notificationMessage.getBody())
                     .build();
 
+                
                 Message message = Message.builder()
                     .setToken(notificationMessage.getRecipientToken())
                     .setNotification(notification)
-                    .putAllData(notificationMessage.getData())
                     .build();
 
+                
                 try {
                     firebaseMessaging.send(message);
                 } catch (FirebaseMessagingException e) {
