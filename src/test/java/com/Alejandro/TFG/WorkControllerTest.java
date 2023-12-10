@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Collections;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,40 +36,28 @@ class WorkControllerTest {
 
     @Test
     void testGetAllWorks() throws Exception {
-        // Configurar el comportamiento del servicio mock
-        when(workService.getAllWorks()).thenReturn(Collections.singletonList(/* Work simulado */));
-
-        // Ejecutar la solicitud HTTP y realizar la prueba
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/works")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/work/")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
     @Test
     void testGetWorkById() throws Exception {
         Long workId = 1L;
 
-        // Configurar el comportamiento del servicio mock
-        when(workService.getWorkById(workId)).thenReturn(/* Work simulado */);
-
-        // Ejecutar la solicitud HTTP y realizar la prueba
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/works/{id}", workId)
+         mockMvc.perform(MockMvcRequestBuilders.get("/api/work/{id}", workId)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
     @Test
     void testCreateWork() throws Exception {
-        // Configurar el comportamiento del servicio mock
-        when(workService.saveWork(any(Work.class))).thenReturn(/* Work simulado */);
-
-        // Ejecutar la solicitud HTTP y realizar la prueba
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/works")
-                .content("{\"id\":1,\"workCheckBox\":[],\"task\":{\"id\":1}}")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders.post("/api//")  // <-- Ajusta la URL aquí
+        .content("{\"task\":\"{\"id\":2}\",\"workCheckBox\":\"null\}")
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
     @Test

@@ -6,11 +6,9 @@ package com.Alejandro.TFG.controller;
 
 import com.Alejandro.TFG.Service.FirebaseMessagingService;
 import com.Alejandro.TFG.Service.TaskService;
-import com.Alejandro.TFG.Service.UserService;
-import com.Alejandro.TFG.model.NotificationMessage;
-import com.Alejandro.TFG.model.Social;
+
 import com.Alejandro.TFG.model.Task;
-import com.Alejandro.TFG.model.User;
+
 
 import java.util.List;
 import java.util.Optional;

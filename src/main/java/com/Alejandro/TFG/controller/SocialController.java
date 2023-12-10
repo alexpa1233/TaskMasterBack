@@ -41,4 +41,24 @@ public class SocialController {
         socialService.deleteSocial(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping("/{socialId}")
+    public ResponseEntity<Social> updateTask(@PathVariable Long taskId, @RequestBody Social updatedSocial) {
+        Social social = socialService.getSocialById(taskId);
+
+        if (social != null) {
+            
+            // Actualizar las propiedades de la tarea existente con las del objeto actualizado
+            social.setHourAdvise(updatedSocial.getHourAdvise());
+            
+
+            // Guardar la tarea actualizada
+           Social updatedInputSocial = socialService.saveSocial(social);
+
+            return ResponseEntity.ok(updatedInputSocial);
+        } else {
+            // La tarea no existe
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

@@ -3,7 +3,6 @@ package com.Alejandro.TFG.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 
@@ -36,11 +35,11 @@ public class Task {
     private User user;
 
     
-    @JsonIgnoreProperties(value="task")
+    @JsonIgnore
     @OneToOne(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private Social social;
 
-    @JsonIgnoreProperties(value="task")
+    @JsonIgnore
     @OneToOne(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private Work work;
     

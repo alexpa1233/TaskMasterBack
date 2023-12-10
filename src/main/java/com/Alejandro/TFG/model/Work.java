@@ -19,6 +19,7 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "work")
     private List<WorkCheckBox> workCheckBox;
 

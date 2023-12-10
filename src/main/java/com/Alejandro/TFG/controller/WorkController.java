@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/api/works")
+@RequestMapping("/api/work/")
 public class WorkController {
     @Autowired
     private WorkService workService;
@@ -55,6 +55,8 @@ public class WorkController {
         workService.deleteWork(id);
         return ResponseEntity.noContent().build();
     }
+
+   
 
     
 }

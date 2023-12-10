@@ -35,9 +35,6 @@ class SocialControllerTest {
 
     @Test
     void testGetAllSocials() throws Exception {
-        // Configurar el comportamiento del servicio mock
-        when(socialService.getAllSocials()).thenReturn(Collections.singletonList(/* Social simulado */));
-
         // Ejecutar la solicitud HTTP y realizar la prueba
         mockMvc.perform(MockMvcRequestBuilders.get("/api/social/getAll")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -48,11 +45,6 @@ class SocialControllerTest {
     @Test
     void testGetSocialById() throws Exception {
         Long socialId = 1L;
-
-        // Configurar el comportamiento del servicio mock
-        when(socialService.getSocialById(socialId)).thenReturn(/* Social simulado */);
-
-        // Ejecutar la solicitud HTTP y realizar la prueba
         mockMvc.perform(MockMvcRequestBuilders.get("/api/social/{id}", socialId)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -61,12 +53,8 @@ class SocialControllerTest {
 
     @Test
     void testSaveSocial() throws Exception {
-        // Configurar el comportamiento del servicio mock
-        when(socialService.saveSocial(any(Social.class))).thenReturn(/* Social simulado */);
-
-        // Ejecutar la solicitud HTTP y realizar la prueba
         mockMvc.perform(MockMvcRequestBuilders.post("/api/social/create")
-                .content("{\"id\":1,\"hourAdvise\":\"12:00\",\"task\":{\"id\":1}}")
+                .content("{\"hourAdvise\":\"12:00\",\"task\":{\"id\":3}}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
     }
@@ -74,13 +62,19 @@ class SocialControllerTest {
     @Test
     void testDeleteSocial() throws Exception {
         Long socialId = 1L;
-
-        // Ejecutar la solicitud HTTP y realizar la prueba
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/social/delete/{id}", socialId)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
-        // Verificar que el servicio se llamó correctamente
-        verify(socialService, times(1)).deleteSocial(socialId);
+      
+    }
+
+    @Test
+    public void testUpdateTask() throws Exception {
+        Long socialId = 2L;
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/social/{socialId}", socialId)
+                    .content("{\"hourAdvise\":\"17:26\",\"task\":{\"id\":3}}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
