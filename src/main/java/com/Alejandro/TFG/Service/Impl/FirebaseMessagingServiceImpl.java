@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.Alejandro.TFG.Service.FirebaseMessagingService;
+import com.Alejandro.TFG.exception.NotificationException;
 import com.Alejandro.TFG.model.NotificationMessage;
 import com.Alejandro.TFG.model.Social;
 import com.Alejandro.TFG.model.Task;
@@ -33,7 +34,7 @@ public class FirebaseMessagingServiceImpl implements FirebaseMessagingService{
         NotificationMessage notificationMessage = new NotificationMessage();
         notificationMessage.setRecipientToken(task.getUser().getDeviceId());
         notificationMessage.setTitle(task.getUser().getUsername());
-        notificationMessage.setBody( task.getUser().getName() +"do your task " + task.getTitle() + " now");
+        notificationMessage.setBody( task.getUser().getName() +" do your task " + task.getTitle() + " now");
         
 
         return notificationMessage;
@@ -49,37 +50,33 @@ public class FirebaseMessagingServiceImpl implements FirebaseMessagingService{
         List<Task> tasks = taskRepository.findByType(TaskType.SOCIAL); // Obtener todas las tareas
 
         if (tasks.isEmpty()) {
-            return "No hay tareas de tipo SOCIAL para enviar notificaciones.";
+            throw new NotificationException("Don't exist any Task with type Social");
         }
         for (Task task : tasks) {
             if (task.getSocial() != null&& task.getType().equals(TaskType.SOCIAL) && shouldSendNotification(task.getSocial())) {
                 // Construir y enviar notificación
                 NotificationMessage notificationMessage = createNotificationMessage(task);
-                Notification notification = Notification
-                .builder()
-                .setTitle(notificationMessage.getTitle())
-                .setBody(notificationMessage.getBody())
-                .build();
+                Notification notification = Notification.builder()
+                    .setTitle(notificationMessage.getTitle())
+                    .setBody(notificationMessage.getBody())
+                    .build();
 
+                Message message = Message.builder()
+                    .setToken(notificationMessage.getRecipientToken())
+                    .setNotification(notification)
+                    .putAllData(notificationMessage.getData())
+                    .build();
 
-                Message message = Message
-                .builder()
-                .setToken(notificationMessage.getRecipientToken())
-                .setNotification(notification)
-                .putAllData(notificationMessage.getData())
-                .build();
                 try {
                     firebaseMessaging.send(message);
-                    return"Success Sending Notification";
                 } catch (FirebaseMessagingException e) {
-                    e.printStackTrace();
-                    return "Error Sending Notification";
+                    throw new NotificationException("Error Sending Notification", e);
                 }
             } else {
-                return "Notification not sent due to time condition";
+                throw new NotificationException("Notification not sent due to time condition");
             }
         }
-        return "You don't have any Task Social";
+        throw new NotificationException("Don't exist any Task with type Social");
     }
 
 
