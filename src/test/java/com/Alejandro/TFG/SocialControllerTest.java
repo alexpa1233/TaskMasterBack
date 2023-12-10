@@ -71,9 +71,9 @@ class SocialControllerTest {
 
     @Test
     public void testUpdateTask() throws Exception {
-        Long socialId = 2L;
+        Long socialId = 1L;
         mockMvc.perform(MockMvcRequestBuilders.put("/api/social/{socialId}", socialId)
-                    .content("{\"hourAdvise\":\"17:26\",\"task\":{\"id\":3}}")
+                    .content("{\"hourAdvise\":\"17:50\",\"task\":{\"id\":3}}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
