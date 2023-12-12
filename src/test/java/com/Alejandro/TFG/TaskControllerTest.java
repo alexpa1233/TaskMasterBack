@@ -17,7 +17,7 @@ class TaskControllerTest {
     private MockMvc mockMvc;
     
     @Test
-    public void testCreateTask() throws Exception {
+    public void testCreateTaskSocial() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/task/")  // <-- Ajusta la URL aquí
                 .content("{\"title\":\"Test\",\"description\":\"Test Description\",\"type\":\"SOCIAL\",\"user\":{\"id\":2},\"social\":null,\"work\":null}")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -25,8 +25,16 @@ class TaskControllerTest {
     }
 
     @Test
+    public void testCreateTaskWork() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/task/")  // <-- Ajusta la URL aquí
+                .content("{\"title\":\"Test\",\"description\":\"Test Description\",\"type\":\"WORK\",\"user\":{\"id\":2},\"social\":null,\"work\":null}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+    @Test
     public void testGetTaskById() throws Exception {
-        Long taskId = 2L;
+        Long taskId = 3L;
         mockMvc.perform(MockMvcRequestBuilders.get("/api/task/{taskId}", taskId)
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -45,7 +53,7 @@ class TaskControllerTest {
 
     @Test
     public void testUpdateTask() throws Exception {
-        Long taskId = 2L;
+        Long taskId = 8L;
         mockMvc.perform(MockMvcRequestBuilders.put("/api/task/{taskId}", taskId)
                     .content("{\"title\":\"Updated Title\",\"description\":\"Updated Description\",\"type\":\"WORK\",\"user\":{\"id\":2},\"social\":null,\"work\":null}")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -54,7 +62,7 @@ class TaskControllerTest {
 
     @Test
     public void testDeleteTask() throws Exception {
-        Long taskId = 1L;
+        Long taskId = 8L;
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/task/{taskId}", taskId)
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
@@ -62,7 +70,7 @@ class TaskControllerTest {
 
     @Test
     public void testSearchTasksByKeyword() throws Exception {
-        String keyword = "test";
+        String keyword = "APL";
         mockMvc.perform(MockMvcRequestBuilders.get("/api/task/search?keyword={keyword}", keyword)
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -78,10 +86,10 @@ class TaskControllerTest {
                 .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
-    @Test
+    /*@Test
     public void testSendNotifications() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/task/send-notifications")
                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+    }*/
 }

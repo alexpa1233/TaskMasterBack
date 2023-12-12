@@ -21,7 +21,7 @@ public class Work {
 
     @JsonIgnore
     @OneToMany(mappedBy = "work")
-    private List<WorkCheckBox> workCheckBox;
+    private List<Step> steps;
 
     @OneToOne
     @JsonIgnoreProperties(value="work")

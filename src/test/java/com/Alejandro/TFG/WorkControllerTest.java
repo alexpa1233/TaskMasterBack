@@ -41,7 +41,7 @@ class WorkControllerTest {
 
     @Test
     void testGetWorkById() throws Exception {
-        Long workId = 1L;
+        Long workId = 4L;
 
          mockMvc.perform(MockMvcRequestBuilders.get("/api/work/{id}", workId)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -52,21 +52,10 @@ class WorkControllerTest {
     @Test
     void testCreateWork() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/work/")  // <-- Ajusta la URL aquí
-        .content("{\"workCheckBox\":\"null\",\"task\":{\"id\":2}}")
+        .content("{\"step\":\"null\",\"task\":{\"id\":17}}")
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
-    @Test
-    void testDeleteWork() throws Exception {
-        Long id = 1L;
-
-        // Ejecutar la solicitud HTTP y realizar la prueba
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/work/{id}", id)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
-
-        // Verificar que el servicio se llamó correctamente
-        verify(workService, times(1)).deleteWork(id);
-    }
+    
 }

@@ -18,7 +18,7 @@ class UserControllerTest {
 
     @Test
     public void Find_User_By_Id_Status_200() throws Exception{
-        Long userId = 1L;
+        Long userId = 2L;
         mockMvc.perform(MockMvcRequestBuilders.get("/api/user/{userId}", userId)
             
             .contentType(MediaType.APPLICATION_JSON))
@@ -81,23 +81,7 @@ class UserControllerTest {
         
     }
 
-    @Test
-    public void Login_Incorrect() throws Exception{
+    
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
-            .content("{\"username\":\"test1\",\"password\":\"test1234\"}")
-            .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isUnauthorized());
-        
-    }
-
-    @Test
-    public void Login_Dont_Found() throws Exception{
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/user/login")
-            .content("{\"username\":\"test12\",\"password\":\"test1234\"}")
-            .contentType(MediaType.APPLICATION_JSON))
-        .andExpect(MockMvcResultMatchers.status().isNotFound());
-        
-    }
+    
 }

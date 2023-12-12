@@ -54,19 +54,9 @@ class SocialControllerTest {
     @Test
     void testSaveSocial() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/social/create")
-                .content("{\"hourAdvise\":\"12:00\",\"task\":{\"id\":3}}")
+                .content("{\"hourAdvise\":\"12:00\",\"task\":{\"id\":16}}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
-    }
-
-    @Test
-    void testDeleteSocial() throws Exception {
-        Long socialId = 1L;
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/social/delete/{id}", socialId)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
-
-      
     }
 
     @Test

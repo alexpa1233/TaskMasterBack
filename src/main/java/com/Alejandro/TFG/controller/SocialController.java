@@ -2,7 +2,6 @@ package com.Alejandro.TFG.controller;
 
 import com.Alejandro.TFG.Service.SocialService;
 import com.Alejandro.TFG.model.Social;
-import com.Alejandro.TFG.exception.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
