@@ -13,5 +13,5 @@ RUN mvn clean package
 
 FROM openjdk:17-jdk-alpine
 EXPOSE 8080
-COPY target/TFG-0.0.1-SNAPSHOT.jar java-api.jar
-ENTRYPOINT [ "java", "-jar", "java-api.jar" ]
+COPY --from=build /app/target/TFG-0.0.1-SNAPSHOT.jar /app/tfg-api.jar
+ENTRYPOINT [ "java", "-jar", "tfg-api.jar" ]
