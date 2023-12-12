@@ -1,10 +1,10 @@
-FROM maven:3.9.6-openjdk-17 AS build
+FROM maven:3.9.2-openjdk-17 AS build
 
 # Establecer un directorio de trabajo
-WORKDIR /tfg
+WORKDIR /app
 
 # Copiar archivos de tu proyecto al directorio de trabajo
-COPY . /tfg
+COPY . /app
 
 # Ejecutar Maven para construir el proyecto
 RUN mvn clean package

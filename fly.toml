@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for tfg2 on 2023-12-12T14:31:30+01:00
+# fly.toml app configuration file generated for tfg-polished-breeze-3961 on 2023-12-12T15:57:38+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "tfg2"
+app = "tfg-polished-breeze-3961"
 primary_region = "mad"
 
 [build]
