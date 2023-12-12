@@ -1,4 +1,4 @@
-FROM maven:3.9.2-openjdk-17 AS build
+FROM maven:3.9.6-openjdk-17 AS build
 
 # Establecer un directorio de trabajo
 WORKDIR /app
