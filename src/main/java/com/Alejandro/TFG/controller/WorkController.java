@@ -38,9 +38,9 @@ public class WorkController {
         return workService.getAllWorks();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Work> getWorkById(@PathVariable Long id) {
-        Work work = workService.getWorkById(id);
+    @GetMapping("/{workId}")
+    public ResponseEntity<Work> getWorkById(@PathVariable Long workId) {
+        Work work = workService.getWorkById(workId);
         return work != null ? ResponseEntity.ok(work) : ResponseEntity.notFound().build();
     }
 

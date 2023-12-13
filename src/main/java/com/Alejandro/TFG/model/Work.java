@@ -19,12 +19,11 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
+    @JsonIgnore 
     @OneToMany(mappedBy = "work")
     private List<Step> steps;
 
     @OneToOne
-    @JsonIgnoreProperties(value="work")
     @JoinColumn(name = "task_id")
     private Task task;
 

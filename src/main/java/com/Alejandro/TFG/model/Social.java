@@ -31,7 +31,6 @@ public class Social {
 
     
     @OneToOne
-    @JsonIgnoreProperties(value="social")
     @JoinColumn(name = "task_id")
     private Task task;
     

@@ -23,13 +23,13 @@ public class SocialController {
         return new ResponseEntity<>(social, HttpStatus.OK);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<Social>> getAllSocials() {
         List<Social> socials = socialService.getAllSocials();
         return new ResponseEntity<>(socials, HttpStatus.OK);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Social> saveSocial(@RequestBody Social social) {
         Social createdSocial = socialService.saveSocial(social);
         return new ResponseEntity<>(createdSocial, HttpStatus.CREATED);

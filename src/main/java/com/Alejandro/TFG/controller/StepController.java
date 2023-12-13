@@ -3,6 +3,7 @@ package com.Alejandro.TFG.controller;
 
 
 import com.Alejandro.TFG.Service.StepService;
+import com.Alejandro.TFG.model.Social;
 import com.Alejandro.TFG.model.Step;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,8 +38,8 @@ public class StepController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Step> getStepById(@PathVariable Long id) {
-        Step workCheckBox = stepService.getStepByID(id);
-        return new ResponseEntity<>(workCheckBox, HttpStatus.OK);
+        Step step = stepService.getStepByID(id);
+        return new ResponseEntity<>(step, HttpStatus.OK);
     }
 
     @GetMapping("/getAllByWork/{workId}")
