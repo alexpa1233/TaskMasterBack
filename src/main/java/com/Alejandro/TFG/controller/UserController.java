@@ -11,7 +11,10 @@ import com.Alejandro.TFG.model.LoginRequest;
 import com.Alejandro.TFG.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +38,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     private  UserService userService;
+
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
+
 
     
     
@@ -54,6 +61,32 @@ public class UserController {
         User user = userService.getUserById(userId);
         return user != null ? ResponseEntity.ok(user) : ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<User> getUsuarioByEmailAndUsername(
+            @RequestParam String email,
+            @RequestParam String username
+    ) {
+        try {
+            logger.info("Buscando usuario con email: {} y username: {}", email, username);
+
+            Optional<User> userOptional = userService.findByEmailAndUsername(email, username);
+
+            return userOptional
+                    .map(user -> {
+                        logger.info("Usuario encontrado: {}", user);
+                        return ResponseEntity.ok().body(user);
+                    })
+                    .orElseGet(() -> {
+                        logger.warn("Usuario no encontrado");
+                        return ResponseEntity.notFound().build();
+                    });
+        } catch (Exception e) {
+            logger.error("Error al buscar usuario", e);
+            return ResponseEntity.status(500).build(); // Código de estado 500 para errores internos del servidor
+        }
+    }
+    
 
     @PutMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User updatedUser) {

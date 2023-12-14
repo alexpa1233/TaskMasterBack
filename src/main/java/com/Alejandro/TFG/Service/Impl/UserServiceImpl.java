@@ -75,5 +75,10 @@ public class UserServiceImpl implements UserService{
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    @Override
+    public Optional<User> findByEmailAndUsername(String email, String username) {
+        return userRepository.findByEmailAndPassword(email, username);
+    }
     
 }
