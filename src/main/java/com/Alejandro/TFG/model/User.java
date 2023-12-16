@@ -45,6 +45,9 @@ public class User {
     private String password;
 
     @Column
+    private String photoLocation;
+
+    @Column
     private String deviceId;
     
     @Column(nullable = false)
