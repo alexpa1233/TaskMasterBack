@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -131,8 +132,10 @@ public class UserController {
             return new ResponseEntity<>(loggedInUser, HttpStatus.OK);
         } catch (NotLoginException e) {
             // Manejar una excepción de contraseña incorrecta
+            
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         } catch (NotFoundException e) {
+           
             // Manejar una excepción de usuario no encontrado o credenciales incorrectas
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

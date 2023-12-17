@@ -44,10 +44,10 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column
+    @Column(nullable = false)
     private String photoLocation;
 
-    @Column
+    @Column(nullable = false)
     private String deviceId;
     
     @Column(nullable = false)
