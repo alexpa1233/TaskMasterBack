@@ -64,10 +64,7 @@ public class UserController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<User> getUsuarioByEmailAndUsername(
-            @RequestParam String email,
-            @RequestParam String username
-    ) {
+    public ResponseEntity<User> getUsuarioByEmailAndUsername(@RequestParam String email,@RequestParam String username) {
         try {
             logger.info("Buscando usuario con email: {} y username: {}", email, username);
 
