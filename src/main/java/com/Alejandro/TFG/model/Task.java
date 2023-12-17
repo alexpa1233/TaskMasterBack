@@ -31,7 +31,6 @@ public class Task {
     private TaskType type;
     
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 

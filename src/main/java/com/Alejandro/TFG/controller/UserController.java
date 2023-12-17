@@ -122,6 +122,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
         try {
+            
             // Llamada a la función login del servicio
             User loggedInUser = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
     
