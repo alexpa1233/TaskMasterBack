@@ -46,7 +46,7 @@ class UserControllerTest {
     public void Crete_User() throws Exception{
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/user/")
-            .content("{\"name\":\"Test\",\"surname\":\"Testeo\",\"username\":\"test1\",\"password\":\"test123\",\"email\":\"test@gmail.com\",\"deviceId\":\"apl123-apl456\"}")
+            .content("{\"name\":\"Test\",\"surname\":\"Testeo\",\"username\":\"test1\",\"password\":\"test123\",\"email\":\"test@gmail.com\"}")
             .contentType(MediaType.APPLICATION_JSON))
         .andExpect(MockMvcResultMatchers.status().isCreated());
         
