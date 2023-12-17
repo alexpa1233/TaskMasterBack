@@ -47,7 +47,7 @@ public class User {
     @Column(nullable = false)
     private String photoLocation;
 
-    @Column(nullable = false)
+    @Column
     private String deviceId;
     
     @Column(nullable = false)
