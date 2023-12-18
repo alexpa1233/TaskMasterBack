@@ -99,6 +99,7 @@ public class UserController {
             existingUser.setUsername(updatedUser.getUsername());
             existingUser.setPassword(updatedUser.getPassword());
             existingUser.setEmail(updatedUser.getEmail());
+            existingUser.setPhotoLocation(updatedUser.getPhotoLocation());
             existingUser.setDeviceId(updatedUser.getDeviceId());
 
             // Guardar el usuario actualizado
@@ -138,5 +139,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    
 
 }

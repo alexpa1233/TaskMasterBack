@@ -26,14 +26,15 @@ public class StepController {
     }
 
     @PutMapping("/{stepId}")
-    public ResponseEntity<Step> updateStep(@RequestBody Step workCheckBox,  @PathVariable Long stepId) {
-        Step workCheckBoxold = stepService.getStepByID(stepId);
-        if (workCheckBox == null) {
+    public ResponseEntity<Step> updateStep(@RequestBody Step step,  @PathVariable Long stepId) {
+        Step stepbyId = stepService.getStepByID(stepId);
+        if (step == null) {
             return ResponseEntity.notFound().build();
         }
-        workCheckBoxold.setName(workCheckBox.getName());
-        Step updatedWorkCheckBox = stepService.saveStep(workCheckBoxold);
-        return ResponseEntity.ok(updatedWorkCheckBox);
+        stepbyId.setName(step.getName());
+        stepbyId.setActive(step.isActive());
+        Step updatedStep = stepService.saveStep(stepbyId);
+        return ResponseEntity.ok(updatedStep);
     }
 
     @GetMapping("/{id}")
