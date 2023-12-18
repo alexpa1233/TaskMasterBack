@@ -3,7 +3,7 @@ package com.Alejandro.TFG.controller;
 
 
 import com.Alejandro.TFG.Service.StepService;
-import com.Alejandro.TFG.model.Social;
+
 import com.Alejandro.TFG.model.Step;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
