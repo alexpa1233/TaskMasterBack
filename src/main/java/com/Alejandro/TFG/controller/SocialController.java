@@ -23,6 +23,12 @@ public class SocialController {
         return new ResponseEntity<>(social, HttpStatus.OK);
     }
 
+    @GetMapping("/task/{taskId}")
+    public ResponseEntity<Social> getSocialByTaskId(@PathVariable Long taskId) {
+        Social social = socialService.getSocialByTaskId(taskId);
+        return new ResponseEntity<>(social, HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<Social>> getAllSocials() {
         List<Social> socials = socialService.getAllSocials();

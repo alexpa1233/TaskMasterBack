@@ -29,7 +29,13 @@ public class WorkServiceImpl implements WorkService{
     @Override
     public Work getWorkById(Long id) {
         return workRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException("User not found"));
+        .orElseThrow(() -> new NotFoundException("Work not found"));
+    }
+
+    @Override
+    public Work getWorkByTaskId(Long id) {
+        return workRepository.findByTaskId(id)
+        .orElseThrow(() -> new NotFoundException("Work not found"));
     }
 
     @Override

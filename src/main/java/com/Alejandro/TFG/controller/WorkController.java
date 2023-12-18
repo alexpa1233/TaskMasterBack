@@ -44,6 +44,12 @@ public class WorkController {
         return work != null ? ResponseEntity.ok(work) : ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/task/{taskId}")
+    public ResponseEntity<Work> getWorkByTaskId(@PathVariable Long taskId) {
+        Work work = workService.getWorkByTaskId(taskId);
+        return work != null ? ResponseEntity.ok(work) : ResponseEntity.notFound().build();
+    }
+
     @PostMapping
     public ResponseEntity<Work> createWork(@RequestBody Work work) {
         Work createdWork = workService.saveWork(work);

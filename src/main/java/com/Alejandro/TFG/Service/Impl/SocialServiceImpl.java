@@ -21,6 +21,11 @@ public class SocialServiceImpl implements SocialService{
     }
 
     @Override
+    public Social getSocialByTaskId(Long taskId) {
+        return socialRepository.findByTaskId(taskId).orElse(null);
+    }
+
+    @Override
     public List<Social> getAllSocials() {
         return socialRepository.findAll();
     }
