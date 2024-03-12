@@ -6,6 +6,7 @@ package com.Alejandro.TFG.controller;
 
 
 import com.Alejandro.TFG.Service.WorkService;
+import com.Alejandro.TFG.model.Social;
 import com.Alejandro.TFG.model.Work;
 
 
@@ -44,10 +45,10 @@ public class WorkController {
         return work != null ? ResponseEntity.ok(work) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/task/{taskId}")
-    public ResponseEntity<Work> getWorkByTaskId(@PathVariable Long taskId) {
-        Work work = workService.getWorkByTaskId(taskId);
-        return work != null ? ResponseEntity.ok(work) : ResponseEntity.notFound().build();
+    @GetMapping("/task/{id}")
+    public ResponseEntity<Work> getWorkByTaskId(@PathVariable Long id) {
+        Work work = workService.getWorkByTaskId(id);
+        return new ResponseEntity<>(work, HttpStatus.OK);
     }
 
     @PostMapping

@@ -4,7 +4,7 @@
  */
 package com.Alejandro.TFG.controller;
 
-import com.Alejandro.TFG.Service.FirebaseMessagingService;
+
 import com.Alejandro.TFG.Service.TaskService;
 
 import com.Alejandro.TFG.model.Task;
@@ -38,8 +38,7 @@ public class TaskController {
     @Autowired
      private TaskService taskService;
 
-    @Autowired
-     private FirebaseMessagingService firebaseMessagingService;
+ 
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -100,12 +99,7 @@ public class TaskController {
         return taskService.getAllTasksByUser(userId);
     }
 
-    @PostMapping("/send-notifications")
-    public ResponseEntity<String> sendNotifications() {
-        String result = firebaseMessagingService.verificarEnvioNotificacionesProgramadas();
-        HttpStatus status = result.startsWith("Success") ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
-        return ResponseEntity.status(status).body(result);
-    }
+
 
     
 }

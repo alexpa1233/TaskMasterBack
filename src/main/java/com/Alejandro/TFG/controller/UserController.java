@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.Alejandro.TFG.controller;
 
 import com.Alejandro.TFG.Service.UserService;
-import com.Alejandro.TFG.exception.NotFoundException;
-import com.Alejandro.TFG.exception.NotLoginException;
 import com.Alejandro.TFG.model.LoginRequest;
 import com.Alejandro.TFG.model.User;
+import com.Alejandro.TFG.util.exception.NotFoundException;
+import com.Alejandro.TFG.util.exception.NotLoginException;
 
 import java.util.List;
 import java.util.Optional;
@@ -64,11 +60,11 @@ public class UserController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<User> getUsuarioByEmailAndUsername(@RequestParam String email,@RequestParam String username) {
+    public ResponseEntity<User> getUsuarioByEmail(@RequestParam String email) {
         try {
-            logger.info("Buscando usuario con email: {} y username: {}", email, username);
+            logger.info("Buscando usuario con email: {} y username: {}", email);
 
-            Optional<User> userOptional = userService.findByEmailAndUsername(email, username);
+            Optional<User> userOptional = userService.findByEmail(email);
 
             return userOptional
                     .map(user -> {
@@ -99,8 +95,7 @@ public class UserController {
             existingUser.setUsername(updatedUser.getUsername());
             existingUser.setPassword(updatedUser.getPassword());
             existingUser.setEmail(updatedUser.getEmail());
-            existingUser.setPhotoLocation(updatedUser.getPhotoLocation());
-            existingUser.setDeviceId(updatedUser.getDeviceId());
+            existingUser.setDevice(updatedUser.getDevice());
 
             // Guardar el usuario actualizado
             User updatedUserEntity = userService.saveUser(existingUser);
@@ -123,7 +118,6 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
         try {
-            
             // Llamada a la función login del servicio
             User loggedInUser = userService.login(loginRequest.getUsername(), loginRequest.getPassword());
     
@@ -139,6 +133,5 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    
 
 }

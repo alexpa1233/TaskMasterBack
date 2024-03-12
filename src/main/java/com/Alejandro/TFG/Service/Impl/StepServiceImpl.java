@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.Alejandro.TFG.Service.StepService;
-import com.Alejandro.TFG.exception.NotFoundException;
 import com.Alejandro.TFG.model.Step;
 import com.Alejandro.TFG.repository.StepRepository;
+import com.Alejandro.TFG.util.exception.NotFoundException;
 
 @Service
 public class StepServiceImpl implements StepService{

@@ -1,37 +1,35 @@
 package com.Alejandro.TFG.model;
 
+
+
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "step")
-public class Step {
+@Table(name = "device")
+public class Device {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "active",nullable = false)
-    private boolean active;
-
+    @Column(name = "device_id")
+    private String deviceId;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "work_id")
-    private Work work;
+    @JsonIgnore
+    @OneToMany(mappedBy = "device")
+    private List<User> user;
 }

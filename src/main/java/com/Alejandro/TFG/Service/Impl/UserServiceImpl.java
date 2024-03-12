@@ -5,11 +5,11 @@
 package com.Alejandro.TFG.Service.Impl;
 
 import com.Alejandro.TFG.Service.UserService;
-import com.Alejandro.TFG.exception.NotFoundException;
-import com.Alejandro.TFG.exception.NotLoginException;
-import com.Alejandro.TFG.exception.UnauthorizedException;
 import com.Alejandro.TFG.model.User;
 import com.Alejandro.TFG.repository.UserRepository;
+import com.Alejandro.TFG.util.exception.NotFoundException;
+import com.Alejandro.TFG.util.exception.NotLoginException;
+import com.Alejandro.TFG.util.exception.UnauthorizedException;
 
 import java.util.List;
 import java.util.Optional;
@@ -77,8 +77,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Optional<User> findByEmailAndUsername(String email, String username) {
-        return userRepository.findByEmailAndUsername(email, username);
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
     
 }

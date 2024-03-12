@@ -3,13 +3,16 @@ package com.Alejandro.TFG.controller;
 
 
 import com.Alejandro.TFG.Service.StepService;
-
+import com.Alejandro.TFG.model.Social;
 import com.Alejandro.TFG.model.Step;
+import com.Alejandro.TFG.model.StepDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,15 +29,14 @@ public class StepController {
     }
 
     @PutMapping("/{stepId}")
-    public ResponseEntity<Step> updateStep(@RequestBody Step step,  @PathVariable Long stepId) {
-        Step stepbyId = stepService.getStepByID(stepId);
-        if (step == null) {
+    public ResponseEntity<Step> updateStep(@RequestBody Step workCheckBox,  @PathVariable Long stepId) {
+        Step workCheckBoxold = stepService.getStepByID(stepId);
+        if (workCheckBox == null) {
             return ResponseEntity.notFound().build();
         }
-        stepbyId.setName(step.getName());
-        stepbyId.setActive(step.isActive());
-        Step updatedStep = stepService.saveStep(stepbyId);
-        return ResponseEntity.ok(updatedStep);
+        workCheckBoxold.setName(workCheckBox.getName());
+        Step updatedWorkCheckBox = stepService.saveStep(workCheckBoxold);
+        return ResponseEntity.ok(updatedWorkCheckBox);
     }
 
     @GetMapping("/{id}")
@@ -44,9 +46,15 @@ public class StepController {
     }
 
     @GetMapping("/getAllByWork/{workId}")
-    public List<Step> getAllStepByWorkId(@PathVariable Long workId) {
-       return stepService.getAllStepByWorkId(workId);
-    }
+    public List<StepDTO> getAllStepByWorkId(@PathVariable Long workId) {
+        List<StepDTO> listStepDTO = new ArrayList<>(); // Inicializa la lista
+        List<Step> stepList = stepService.getAllStepByWorkId(workId);
+        stepList.forEach(step -> {
+            StepDTO stepDTO = new StepDTO(step.getId(), step.getName(), step.isActive());
+            listStepDTO.add(stepDTO);
+        });
+        return listStepDTO; 
+}
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteStep(@PathVariable Long id) {

@@ -6,9 +6,10 @@ package com.Alejandro.TFG.Service.Impl;
 
 
 import com.Alejandro.TFG.Service.TaskService;
-import com.Alejandro.TFG.exception.NotFoundException;
 import com.Alejandro.TFG.model.Task;
 import com.Alejandro.TFG.repository.TaskRepository;
+import com.Alejandro.TFG.util.exception.NotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 

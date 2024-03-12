@@ -10,9 +10,8 @@ import java.util.List;
 
 public interface WorkService {
     List<Work> getAllWorks();
-    Work getWorkByTaskId(Long taskId);
     Work saveWork(Work work);
     void deleteWork(Long workId);
     Work getWorkById(Long id);
-    
+    Work getWorkByTaskId(Long taskId);
 }

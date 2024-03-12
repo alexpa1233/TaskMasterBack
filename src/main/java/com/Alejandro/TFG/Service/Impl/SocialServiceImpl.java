@@ -21,11 +21,6 @@ public class SocialServiceImpl implements SocialService{
     }
 
     @Override
-    public Social getSocialByTaskId(Long taskId) {
-        return socialRepository.findByTaskId(taskId).orElse(null);
-    }
-
-    @Override
     public List<Social> getAllSocials() {
         return socialRepository.findAll();
     }
@@ -38,6 +33,12 @@ public class SocialServiceImpl implements SocialService{
     @Override
     public void deleteSocial(Long socialId) {
         socialRepository.deleteById(socialId);
+    }
+
+    @Override
+    public Social getSocialByTaskId(Long id) {
+        
+        return socialRepository.findByTaskId(id);
     }
 
     

@@ -5,9 +5,9 @@
 package com.Alejandro.TFG.Service.Impl;
 
 import com.Alejandro.TFG.Service.WorkService;
-import com.Alejandro.TFG.exception.NotFoundException;
 import com.Alejandro.TFG.model.Work;
 import com.Alejandro.TFG.repository.WorkRepository;
+import com.Alejandro.TFG.util.exception.NotFoundException;
 
 import java.util.List;
 
@@ -29,13 +29,7 @@ public class WorkServiceImpl implements WorkService{
     @Override
     public Work getWorkById(Long id) {
         return workRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException("Work not found"));
-    }
-
-    @Override
-    public Work getWorkByTaskId(Long id) {
-        return workRepository.findByTaskId(id)
-        .orElseThrow(() -> new NotFoundException("Work not found"));
+        .orElseThrow(() -> new NotFoundException("User not found"));
     }
 
     @Override
@@ -51,6 +45,12 @@ public class WorkServiceImpl implements WorkService{
     @Override
     public void deleteWork(Long workId) {
         workRepository.deleteById(workId);
+    }
+
+    @Override
+    public Work getWorkByTaskId(Long taskId) {
+        
+        return workRepository.findByTaskId(taskId);
     }
 
     

@@ -42,5 +42,18 @@ public class Task {
     @JsonIgnore
     @OneToOne(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private Work work;
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", type=" + type +
+                ", userId=" + (user != null ? user.getId() : "null") +
+                
+                '}';
+}
+
     
 }

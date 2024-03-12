@@ -23,9 +23,9 @@ public class SocialController {
         return new ResponseEntity<>(social, HttpStatus.OK);
     }
 
-    @GetMapping("/task/{taskId}")
-    public ResponseEntity<Social> getSocialByTaskId(@PathVariable Long taskId) {
-        Social social = socialService.getSocialByTaskId(taskId);
+    @GetMapping("/task/{id}")
+    public ResponseEntity<Social> getSocialByTaskId(@PathVariable Long id) {
+        Social social = socialService.getSocialByTaskId(id);
         return new ResponseEntity<>(social, HttpStatus.OK);
     }
 
@@ -38,7 +38,8 @@ public class SocialController {
     @PostMapping
     public ResponseEntity<Social> saveSocial(@RequestBody Social social) {
         Social createdSocial = socialService.saveSocial(social);
-        return new ResponseEntity<>(createdSocial, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSocial);
+        
     }
 
     

@@ -7,7 +7,7 @@ import com.Alejandro.TFG.model.Social;
 
 public interface SocialService {
     Social getSocialById(Long id);
-    Social getSocialByTaskId(Long taskId);
+    Social getSocialByTaskId(Long id);
     List<Social> getAllSocials();
     Social saveSocial(Social social);
     void deleteSocial(Long id);
